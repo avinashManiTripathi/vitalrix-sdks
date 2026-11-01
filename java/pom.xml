@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.vitalrix</groupId>
+  <artifactId>vitalrix</artifactId>
+  <version>0.1.0</version>
+  <packaging>jar</packaging>
+  <name>VitalRix for Java</name>
+  <description>Send traces, metrics and logs from Java to VitalRix in one call (OpenTelemetry under the hood).</description>
+  <url>https://vitalrix.com</url>
+  <licenses><license><name>MIT License</name><url>https://opensource.org/licenses/MIT</url></license></licenses>
+  <developers><developer><name>VitalRix</name><url>https://vitalrix.com</url></developer></developers>
+  <scm>
+    <url>https://github.com/avinashManiTripathi/vitalrix-sdks</url>
+    <connection>scm:git:https://github.com/avinashManiTripathi/vitalrix-sdks.git</connection>
+  </scm>
+
+  <properties>
+    <maven.compiler.release>11</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <otel.version>1.67.0</otel.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.opentelemetry</groupId>
+        <artifactId>opentelemetry-bom</artifactId>
+        <version>${otel.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency><groupId>io.opentelemetry</groupId><artifactId>opentelemetry-api</artifactId></dependency>
+    <dependency><groupId>io.opentelemetry</groupId><artifactId>opentelemetry-sdk</artifactId></dependency>
+    <dependency><groupId>io.opentelemetry</groupId><artifactId>opentelemetry-exporter-otlp</artifactId></dependency>
+    <dependency><groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter</artifactId><version>5.11.4</version><scope>test</scope></dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-surefire-plugin</artifactId><version>3.5.2</version></plugin>
+      <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-source-plugin</artifactId><version>3.3.1</version>
+        <executions><execution><id>attach-sources</id><goals><goal>jar-no-fork</goal></goals></execution></executions></plugin>
+      <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-javadoc-plugin</artifactId><version>3.11.2</version>
+        <configuration><doclint>none</doclint></configuration>
+        <executions><execution><id>attach-javadocs</id><goals><goal>jar</goal></goals></execution></executions></plugin>
+    </plugins>
+  </build>
+</project>

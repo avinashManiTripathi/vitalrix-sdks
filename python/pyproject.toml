@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "vitalrix"
+version = "0.1.0"
+description = "Send traces, metrics and logs from Python to VitalRix in one call (OpenTelemetry under the hood)."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [{ name = "VitalRix" }]
+keywords = ["observability", "opentelemetry", "apm", "tracing", "logging", "monitoring"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Topic :: System :: Monitoring",
+  "Operating System :: OS Independent",
+]
+dependencies = [
+  "opentelemetry-api>=1.27,<2",
+  "opentelemetry-sdk>=1.27,<2",
+  "opentelemetry-exporter-otlp-proto-http>=1.27,<2",
+  "opentelemetry-instrumentation>=0.48b0",
+]
+
+[project.urls]
+Homepage = "https://vitalrix.com"
+Documentation = "https://docs.vitalrix.com/apm/setup"
+Source = "https://github.com/avinashManiTripathi/vitalrix-sdks"
+
+[project.scripts]
+vitalrix = "vitalrix.cli:main"
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/vitalrix"]

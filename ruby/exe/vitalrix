@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# `vitalrix check`: sends one test log so you know the key and URL work.
+require "vitalrix"
+
+unless ARGV.first == "check"
+  warn "usage: vitalrix check"
+  exit 2
+end
+begin
+  puts Vitalrix.check
+rescue StandardError => e
+  warn "vitalrix: #{e.message}"
+  exit 1
+end

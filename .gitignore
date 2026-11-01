@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.egg-info/
+dist/
+build/
+target/
+vendor/
+.bundle/
+*.gem
+composer.lock
+Gemfile.lock
+.phpunit.cache/
+.DS_Store
