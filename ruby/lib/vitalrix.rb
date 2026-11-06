@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "json"
+require "socket"
 require "net/http"
 require "uri"
 require_relative "vitalrix/version"
@@ -27,7 +28,8 @@ module Vitalrix
   def self.otel_environment(c = config)
     {
       "OTEL_SERVICE_NAME" => c.service,
-      "OTEL_RESOURCE_ATTRIBUTES" => "deployment.environment.name=#{c.environment},service.version=#{c.version}",
+      # host.name: VitalRix counts APM hosts by it, the same way for every SDK.
+      "OTEL_RESOURCE_ATTRIBUTES" => "deployment.environment.name=#{c.environment},service.version=#{c.version},host.name=#{Socket.gethostname}",
       "OTEL_EXPORTER_OTLP_PROTOCOL" => "http/protobuf",
       "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT" => c.endpoint("traces/otlp/v1/traces"),
       "OTEL_EXPORTER_OTLP_METRICS_ENDPOINT" => c.endpoint("metrics/otlp/v1/metrics"),

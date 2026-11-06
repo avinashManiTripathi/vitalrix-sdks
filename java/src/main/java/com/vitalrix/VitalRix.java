@@ -80,7 +80,9 @@ public final class VitalRix {
       System.err.println("[vitalrix] VITALRIX_API_KEY is not set: nothing is sent");
       return OpenTelemetry.noop();
     }
+    // host.name: VitalRix counts APM hosts by it, the same way for every SDK.
     Resource resource = Resource.getDefault().merge(Resource.create(Attributes.of(
+        AttributeKey.stringKey("host.name"), hostName(),
         AttributeKey.stringKey("service.name"), c.service,
         AttributeKey.stringKey("service.version"), c.version,
         AttributeKey.stringKey("deployment.environment.name"), c.environment)));
@@ -150,6 +152,12 @@ public final class VitalRix {
         HttpResponse.BodyHandlers.ofString());
     if (res.statusCode() >= 300) throw new IllegalStateException(res.statusCode() + " " + res.body());
     return "ok: a test log from \"" + c.service + "\" (" + c.environment + ") reached " + c.url;
+  }
+
+  static String hostName() {
+    String env = System.getenv("HOSTNAME");
+    if (env != null && !env.isEmpty()) return env;
+    try { return java.net.InetAddress.getLocalHost().getHostName(); } catch (Exception e) { return "unknown"; }
   }
 
   private static String json(String s) { return s.replace("\\", "\\\\").replace("\"", "\\\""); }

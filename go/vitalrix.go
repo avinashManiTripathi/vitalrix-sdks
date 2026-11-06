@@ -97,7 +97,10 @@ func Init(ctx context.Context, opts ...Option) (func(context.Context) error, err
 		return func(context.Context) error { return nil }, ErrNoAPIKey
 	}
 	headers := map[string]string{"x-api-key": c.APIKey}
+	// host.name: VitalRix counts APM hosts by it, the same way for every SDK.
+	host, _ := os.Hostname()
 	res, err := resource.Merge(resource.Default(), resource.NewSchemaless(
+		attribute.String("host.name", host),
 		attribute.String("service.name", c.Service),
 		attribute.String("service.version", c.Version),
 		attribute.String("deployment.environment.name", c.Environment),

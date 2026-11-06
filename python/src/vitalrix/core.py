@@ -4,6 +4,7 @@ from __future__ import annotations
 import atexit
 import json
 import logging
+import socket
 import urllib.request
 from importlib.metadata import entry_points
 from typing import List, Optional
@@ -45,7 +46,8 @@ def init(
         _log.warning("VITALRIX_API_KEY is not set: nothing is sent")
         return False
 
-    resource = Resource.create({"service.name": c.service, "service.version": c.version, "deployment.environment.name": c.environment})
+    # host.name: VitalRix counts APM hosts by it (else by service.instance.id, which the SDK makes random per process).
+    resource = Resource.create({"service.name": c.service, "service.version": c.version, "deployment.environment.name": c.environment, "host.name": socket.gethostname()})
 
     # Parent-based: a request arriving with a sampled traceparent (browser, another service) stays sampled.
     tracer_provider = TracerProvider(resource=resource, sampler=ParentBased(TraceIdRatioBased(c.sample_rate)))
