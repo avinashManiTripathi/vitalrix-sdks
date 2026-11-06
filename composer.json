@@ -15,8 +15,8 @@
     "guzzlehttp/psr7": "^2.6"
   },
   "require-dev": { "phpunit/phpunit": "^10.5 || ^11.0" },
-  "autoload": { "psr-4": { "Vitalrix\\": "src/" } },
-  "autoload-dev": { "psr-4": { "Vitalrix\\Tests\\": "tests/" } },
-  "bin": ["bin/vitalrix"],
+  "autoload": { "psr-4": { "Vitalrix\\": "php/src/" } },
+  "autoload-dev": { "psr-4": { "Vitalrix\\Tests\\": "php/tests/" } },
+  "bin": ["php/bin/vitalrix"],
   "config": { "allow-plugins": { "php-http/discovery": true, "tbachert/spi": true } }
 }

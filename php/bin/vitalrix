@@ -1,7 +1,8 @@
 #!/usr/bin/env php
 <?php
 // `vitalrix check`: sends one test log so you know the key and URL work.
-foreach ([__DIR__ . '/../vendor/autoload.php', __DIR__ . '/../../../autoload.php'] as $autoload) {
+// Composer sets $_composer_autoload_path for installed bins; the others: this repo, then vendor/vitalrix/vitalrix/php/bin.
+foreach ([$GLOBALS['_composer_autoload_path'] ?? '', __DIR__ . '/../../vendor/autoload.php', __DIR__ . '/../../../../autoload.php'] as $autoload) {
     if (is_file($autoload)) { require $autoload; break; }
 }
 if (($argv[1] ?? '') !== 'check') {

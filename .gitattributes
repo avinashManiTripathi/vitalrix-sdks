@@ -1,0 +1,8 @@
+# Packagist downloads (composer require vitalrix/vitalrix) carry only the PHP SDK.
+/python export-ignore
+/go export-ignore
+/java export-ignore
+/ruby export-ignore
+/php/tests export-ignore
+/.gitignore export-ignore
+/.gitattributes export-ignore
